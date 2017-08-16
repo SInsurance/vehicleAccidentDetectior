@@ -1,0 +1,26 @@
+import RPi.GPIO as GPIO
+import time
+class KNOCK(object): 
+	GPIO.setmode(GPIO.BCM)
+  
+#This is where the access pin to which the sensor is connected is declared. The pullup resistor at the input is also activated
+	GPIO_PIN = 24
+	GPIO.setup(GPIO_PIN, GPIO.IN)
+  
+	print "Sensor-Test [ctrl+c to stop]"
+	def detection():
+#This output function is performed during signal detection
+		def printf(null):
+			print("khocked")
+			return 1
+#When a signal (falling signal edge) is detected, the output function is triggered
+	GPIO.add_event_detect(GPIO_PIN, GPIO.FALLING, callback=printf, bouncetime=100) 
+  
+# main proj loop
+	try:
+		while True:
+			time.sleep(1)
+  
+#Clean up after the program has finished
+	except KeyboardInterrupt:
+		GPIO.cleanup()
